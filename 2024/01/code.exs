@@ -1,16 +1,4 @@
-defmodule Lists do
-  def split_lines_into_groups_by_spaces(input) when is_binary(input) do
-    split_by_line(input) |> Enum.map(&split_by_spaces/1)
-  end
-
-  def split_by_spaces(input) when is_binary(input) do
-    String.split(input, [" ", "\r"], trim: true)
-  end
-
-  def split_by_line(input) do
-    String.split(input, "\n", trim: true)
-  end
-end
+C.de.require_file("shared.exs", "../")
 
 defmodule Part1 do
   def furthest_between_left_in_two_lists(input) do
