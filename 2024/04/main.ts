@@ -46,46 +46,23 @@ let count = 0;
 
 // COUNT THE X-MAS
 for (let i = 0; i < data.length; i++) {
-    let char = data[i];
+    if (data[i] !== 'A') continue;
+
     let x = X(i, width);
     let y = Y(i, width);
 
-    // Find X
-    if (char === 'A' &&
-        S(data, x - 1, y - 1, width) === 'M' &&
-        S(data, x + 1, y - 1, width) === 'M' &&
-        S(data, x - 1, y + 1, width) === 'S' &&
-        S(data, x + 1, y + 1, width) === 'S'
-    ) {
-        count++;
-    }
+    const tl = S(data, x - 1, y - 1, width);
+    const tr = S(data, x + 1, y - 1, width);
+    const bl = S(data, x - 1, y + 1, width);
+    const br = S(data, x + 1, y + 1, width);
 
-    if (char === 'A' &&
-        S(data, x - 1, y - 1, width) === 'S' &&
-        S(data, x + 1, y - 1, width) === 'S' &&
-        S(data, x - 1, y + 1, width) === 'M' &&
-        S(data, x + 1, y + 1, width) === 'M'
-    ) {
-        count++;
-    }
+    const valid =
+        (tl === 'M' && tr === 'M' && bl === 'S' && br === 'S') ||
+        (tl === 'S' && tr === 'S' && bl === 'M' && br === 'M') ||
+        (tl === 'M' && tr === 'S' && bl === 'M' && br === 'S') ||
+        (tl === 'S' && tr === 'M' && bl === 'S' && br === 'M');
 
-    if (char === 'A' &&
-        S(data, x - 1, y - 1, width) === 'M' &&
-        S(data, x + 1, y - 1, width) === 'S' &&
-        S(data, x - 1, y + 1, width) === 'M' &&
-        S(data, x + 1, y + 1, width) === 'S'
-    ) {
-        count++;
-    }
-
-    if (char === 'A' &&
-        S(data, x - 1, y - 1, width) === 'S' &&
-        S(data, x + 1, y - 1, width) === 'M' &&
-        S(data, x - 1, y + 1, width) === 'S' &&
-        S(data, x + 1, y + 1, width) === 'M'
-    ) {
-        count++;
-    }
+    if (valid) count++;
 }
 
 // COUNT THE Xmas
