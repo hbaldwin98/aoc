@@ -65,16 +65,36 @@ defmodule Part2 do
     chunks =
       Enum.chunk_every(input, 3, 1, :discard)
 
-    num_safe =
-      Enum.reduce(chunks, 0, fn chunk, acc ->
-        if Part1.is_chunk_safe(chunk) do
-          acc + 1
+    is_safe =
+      Enum.reduce_while(chunks, true, fn chunk, acc ->
+        if !is_chunk_safe(chunk) do
+          {:halt, false}
         else
-          acc
+          {:cont, acc}
         end
       end)
 
-    num_safe === Enum.count(chunks) || num_safe === Enum.count(chunks) - 1
+    if !is_safe do
+      # determine which value is unsafe
+      # then remove it and chunk again.
+      num_safe =
+        Enum.reduce(chunks, 0, fn chunk, acc ->
+          if Part1.is_chunk_safe(chunk) do
+            nil
+          else
+            # if it's not safe, we would need to see
+            # which one is not safe, then create new chunks
+            # without that value and do it again.
+            # should we accumulate all the safe ones
+            # and then the unsafe ones
+            # and then act only on the unsafe ones?
+          end
+        end)
+
+      num_safe === Enum.count(chunks) || num_safe === Enum.count(chunks) - 1
+    end
+
+    is_safe
   end
 end
 
