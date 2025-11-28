@@ -1,4 +1,5 @@
 import { getInput } from '../helpers/read_file'
+import { X, Y, S } from '../helpers/grid'
 
 const input = await getInput();
 
@@ -16,26 +17,6 @@ function cleanInput(input: string) {
 
 function calculateWidthFromInput(input: string) {
     return input.indexOf('\n');
-}
-
-function X(index: number, width: number) {
-    return index % width;
-}
-
-function Y(index: number, width: number) {
-    return Math.trunc(index / width);
-}
-
-function I(x: number, y: number, width: number) {
-    return y * width + x;
-}
-
-function S(data: string, x: number, y: number, width: number) {
-    if (x < 0 || x >= width || y < 0 || y >= data.length) {
-        return undefined;
-    }
-
-    return data[I(x, y, width)];
 }
 
 let data = cleanInput(input);
