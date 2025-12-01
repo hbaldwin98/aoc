@@ -6,13 +6,11 @@ function generateMD5Hash(input: string) {
 }
 
 function isFiveZeroes(input: string) {
-    //return Number(input.slice(0, 5)) === 0;
-    return input[0] == 0 &&
-        input[1] == 0 &&
-        input[2] == 0 &&
-        input[3] == 0 &&
-        input[4] == 0 &&
-        input[5] == 0;
+    return input.slice(0, 5) === '00000';
+}
+
+function isSixZeroes(input: string) {
+    return input.slice(0, 6) === '000000';
 }
 
 const secret = await getInput();
@@ -23,5 +21,14 @@ while (!isFiveZeroes(hash)) {
     number++;
     hash = generateMD5Hash(`${secret}${number}`);
 }
-console.log(hash, number);
 
+console.log('Part 1', hash, number);
+
+number = 0;
+hash = generateMD5Hash(`${secret}${number}`);
+while (!isSixZeroes(hash)) {
+    number++;
+    hash = generateMD5Hash(`${secret}${number}`);
+}
+
+console.log('Part 2', hash, number);

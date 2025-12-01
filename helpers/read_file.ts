@@ -17,3 +17,6 @@ export async function getInput() {
     return await readFile(path.join(path.dirname(''), FILE_NAME));
 }
 
+export function getLines(input: string) {
+    return input.trim().split('\r\n');
+}
