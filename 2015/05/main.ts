@@ -44,3 +44,37 @@ for (let i = 0; i < strings.length; i++) {
 }
 
 console.log("Part 1", nices);
+
+// store the pair with their positions
+
+nices = 0;
+
+for (let i = 0; i < strings.length; i++) {
+    const string = strings[i]!;
+    const pairs = new Map<string, number[]>();
+    let hasSandwich = false;
+    let hasPair = false;
+
+    for (let j = 0; j < string.length - 1; j++) {
+        if (string[j] === string[j + 2]) {
+            hasSandwich = true;
+        }
+
+        let pair = string[j]! + string[j + 1];
+        if (pairs.has(pair)) {
+            let foundPair = pairs.get(pair);
+            if (foundPair?.[1] !== j) {
+                hasPair = true;
+            }
+        } else {
+            pairs.set(pair, [j, j + 1]);
+        }
+
+        if (hasSandwich && hasPair) {
+            nices++;
+            break;
+        }
+    }
+}
+
+console.log("Part 2", nices);
