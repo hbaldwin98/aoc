@@ -10,7 +10,7 @@ export function I(x: number, y: number, width: number) {
     return y * width + x;
 }
 
-export function S(data: string, x: number, y: number, width: number) {
+export function S(data: string | string[], x: number, y: number, width: number) {
     if (x < 0 || x >= width || y < 0 || y >= data.length) {
         return undefined;
     }
